@@ -1,0 +1,39 @@
+#include "Logger.h"
+#include "Appender.h"
+#include <algorithm>
+
+namespace RWLogger
+{
+	Logger::Logger(const std::string& name, Level lvl)
+		: m_name(name)
+		, m_level(lvl)
+	{}
+
+	void Logger::addAppender(AppenderPtr appender)
+	{
+		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
+		m_appenders.push_back(appender);
+	}
+
+	void Logger::removeAppender(AppenderPtr appender)
+	{
+		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
+		const auto it = std::find(m_appenders.begin(), m_appenders.end(), appender);
+		if(it != m_appenders.end())
+			m_appenders.erase(it);
+	}
+
+	void Logger::logImpl(Level lvl, const std::string& message)
+	{
+		if(m_level.load() > lvl)
+			return;
+
+		const auto eventTime = std::chrono::system_clock::now();
+		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
+		for(const auto& appender: m_appenders)
+		{
+			std::unique_lock<Appender> appenderLck(*appender);
+			appender->append({ lvl, message, eventTime, std::this_thread::get_id(), m_name });
+		}
+	}
+}
