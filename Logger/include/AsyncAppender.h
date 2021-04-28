@@ -28,6 +28,7 @@ namespace RWLogger
 		std::thread m_appenderTread;
 		std::atomic_bool m_appending{ true };
 		std::queue<LoggingEvent> m_queue;
+		std::mutex m_mtx;
 		std::condition_variable_any m_cv;
 	};
 }

@@ -33,9 +33,6 @@ namespace RWLogger
 		virtual void append(const LoggingEvent& event);
 		bool immidiateFlush() const { return m_immidiateFlush; }
 		void format(std::ostream& ostream, const LoggingEvent& event) const;
-		void lock() { m_mtx.lock(); }
-		void unlock() { m_mtx.unlock(); }
-		bool try_lock() { return m_mtx.try_lock(); }
 
 	protected:
 		void setOStream(std::ostream* os) { m_ostream = os; }
@@ -44,7 +41,6 @@ namespace RWLogger
 	private:
 		std::ostream* m_ostream = nullptr;
 		bool m_immidiateFlush = true;
-		std::mutex m_mtx;
 		Formatter m_formatter;
 	};
 }
