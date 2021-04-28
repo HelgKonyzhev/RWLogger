@@ -31,9 +31,6 @@ namespace RWLogger
 		const auto eventTime = std::chrono::system_clock::now();
 		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
 		for(const auto& appender: m_appenders)
-		{
-			std::unique_lock<Appender> appenderLck(*appender);
 			appender->append({ lvl, message, eventTime, std::this_thread::get_id(), m_name });
-		}
 	}
 }
