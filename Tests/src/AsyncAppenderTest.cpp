@@ -15,8 +15,8 @@ struct AsyncAppenderTest : public Test
 		using namespace RWLogger;
 
 		Logger logger("AsyncLogger");
-		auto subAppender = SubAppenderPtr{ new FileAppender("result", false, true, TestsRunner::testFormat) };
-		auto appender = std::make_shared<AsyncAppender>(std::move(subAppender), 10);
+		auto appender = std::make_shared<AsyncAppender>(10);
+		appender->addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 		logger.addAppender(appender);
 
 		logger.trace("Trace message");

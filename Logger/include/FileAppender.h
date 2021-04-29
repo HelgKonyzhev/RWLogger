@@ -17,6 +17,9 @@ namespace RWLogger
 		 * appended to. Otherwise, the file designated by
 		 * @param filename will be truncated before being opened. */
 		FileAppender(const std::string& filename, bool append, bool immidiateFlush = true, Formatter formatter = nullptr);
+
+		/**
+		 * Closes output file */
 		~FileAppender() override;
 
 	private:

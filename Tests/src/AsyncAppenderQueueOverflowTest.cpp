@@ -36,8 +36,8 @@ public:
 class TestAsyncAppender : public AsyncAppender
 {
 public:
-	TestAsyncAppender(CallsSequence* callsSequence, SubAppenderPtr&& appender, size_t queueMaxSize)
-		: AsyncAppender(std::move(appender), queueMaxSize)
+	TestAsyncAppender(CallsSequence* callsSequence, size_t queueMaxSize)
+		: AsyncAppender(queueMaxSize)
 		, m_callsSequence(callsSequence)
 	{}
 
@@ -75,8 +75,8 @@ struct AsyncAppenderQueueOverflowTest : public Test
 	{
 		CallsSequence callsSequense;
 		Logger logger("AsyncLogger");
-		auto subAppender = SubAppenderPtr{ new TestSubAppender(&callsSequense) };
-		auto appender = std::make_shared<TestAsyncAppender>(&callsSequense, std::move(subAppender), MaxQueueSize);
+		auto appender = std::make_shared<TestAsyncAppender>(&callsSequense, MaxQueueSize);
+		appender->addAppender<TestSubAppender>(&callsSequense);
 		logger.addAppender(appender);
 
 		for(int i = 0; i < 5; i++)
