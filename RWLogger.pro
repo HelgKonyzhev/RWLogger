@@ -1,3 +1,3 @@
 TEMPLATE = subdirs
 CONFIG += ordered
-SUBDIRS = Logger Tests
+SUBDIRS = Logger Tests Example

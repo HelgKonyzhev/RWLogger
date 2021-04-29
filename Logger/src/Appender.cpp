@@ -38,9 +38,9 @@ namespace RWLogger
 
 			ostream << std::put_time(timeInfo, "%Y-%m-%d %H:%M:%S.") << std::setfill('0') << std::setw(3) << msecs << std::setfill('\0')
 					<< " "
-					<< std::setw(5) << std::left << levelName(event.level)
+					<< std::setw(5) << std::setfill(' ') << std::left << levelName(event.level)
 					<< "\t"
-					<< std::hex << std::showbase << std::internal << std::setw(10) << event.threadId << std::dec << std::setfill('\0') << std::setw(0)
+					<< std::hex << std::showbase << std::internal << std::setfill('0') << std::setw(10) << event.threadId << std::dec << std::setfill('\0') << std::setw(0)
 					<< " "
 					<< event.message
 					<< '\n';
