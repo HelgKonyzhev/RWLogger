@@ -6,4 +6,4 @@ CONFIG -= qt
 include ($$PWD/../Logger/Logger.pri)
 
 SOURCES += \
-        main.cpp
+        $$PWD/main.cpp

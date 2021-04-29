@@ -6,15 +6,15 @@ CONFIG -= qt
 include ($$PWD/../Logger/Logger.pri)
 
 SOURCES += \
-        ArgsToStringTest.cpp \
-        AsyncAppenderQueueOverflowTest.cpp \
-        AsyncAppenderTest.cpp \
-        ConsoleAppendersTest.cpp \
-        FileAppenderTest.cpp \
-        LevelsTest.cpp \
-        MultipleThreadsTest.cpp \
-        TestsRunner.cpp \
-        main.cpp
+        $$PWD/ArgsToStringTest.cpp \
+        $$PWD/AsyncAppenderQueueOverflowTest.cpp \
+        $$PWD/AsyncAppenderTest.cpp \
+        $$PWD/ConsoleAppendersTest.cpp \
+        $$PWD/FileAppenderTest.cpp \
+        $$PWD/LevelsTest.cpp \
+        $$PWD/MultipleThreadsTest.cpp \
+        $$PWD/TestsRunner.cpp \
+        $$PWD/main.cpp
 
 HEADERS += \
-    TestsRunner.h
+    $$PWD/TestsRunner.h

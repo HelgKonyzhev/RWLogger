@@ -72,10 +72,10 @@ namespace RWLogger
 		size_t m_bufferMaxSize;
 		std::vector<AppenderPtr> m_appenders;
 		std::mutex m_appendersMtx;
-		std::thread m_appenderTread;
 		std::atomic_bool m_appending{ true };
 		std::queue<LoggingEvent> m_buffer;
 		std::mutex m_bufferMtx;
 		std::condition_variable_any m_bufferCv;
+		std::thread m_appenderTread;
 	};
 }
