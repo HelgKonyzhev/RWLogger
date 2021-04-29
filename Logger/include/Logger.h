@@ -12,30 +12,67 @@ namespace RWLogger
 	class Appender;
 	using AppenderPtr = std::shared_ptr<Appender>;
 
+	/**
+	 * This is the central class in the RWLogger package.
+	 * All logging operations, are done through this class. */
 	class Logger
 	{
 	public:
+		/**
+		 * This constructor created a new logger instance and
+		 * sets its name and loggng level. */
 		Logger(const std::string& name, Level lvl = Trace);
 
+		/**
+		 * Return the logger level */
 		Level level() const { return m_level; }
+
+		/**
+		 * Add new appender to the list of appenders of this Logger instance.
+		 * If appender already in the list of appender, then it won't be added. */
 		void addAppender(AppenderPtr appender);
 
+		/**
+		 * An overloaded function. Creates appender of type T and calls Logger::addAppender(AppenderPtr appender) */
 		template<typename T, typename... Args>
 		AppenderPtr addAppender(Args&&... args)
 		{
+			static_assert (std::is_base_of<Appender, T>::value, "Only objects inherited from Appender could be added");
 			auto appender = std::make_shared<T>(std::forward<Args>(args)...);
 			addAppender(appender);
 			return appender;
 		}
 
+		/**
+		 * Remove the appender passed as parameter form the list of appenders. */
 		void removeAppender(AppenderPtr appender);
 
+		/**
+		 * Set the level of this logger. */
+		void setLevel(Level lvl) { m_level = lvl; }
+
+		/**
+		 * This is the most generic printing method. It is intended to be
+		 * invoked by wrappers methods that takes one argument.
+		 * This is an overload of Logger::log method intended to avoid
+		 * overhead for arguments folding and local buffer.
+		 * This method first checks if demanded logging level is enabled
+		 * by comparing it with the level of this logger.
+		 * If so, it proceeds to call all the registered appenders. */
 		template<typename T>
 		void log(Level lvl, T&& val)
 		{
 			logImpl(lvl, toString(std::forward<T>(val)));
 		}
 
+		/**
+		 * This is the most generic printing method. It is intended to be
+		 * invoked by wrappers methods that takes variadic number of arguments.
+		 * It has arguments folding logic that converting arguments
+		 * to string and stores them into temporary local string before the printing
+		 * This method first checks if demanded logging level is enabled
+		 * by comparing it with the level of this logger.
+		 * If so, it proceeds to call all the registered appenders. */
 		template<typename Arg, typename... Args>
 		void log(Level lvl, Arg&& arg, Args&&... args)
 		{
@@ -45,39 +82,75 @@ namespace RWLogger
 			logImpl(lvl, argsStr);
 		}
 
+		/**
+		 * Convert @param arg to string and log with the Trace level.
+		 * Wraps Logger::log method with single argument */
 		template<typename Arg>
 		void trace(Arg&& arg) { return log(Trace, std::forward<Arg>(arg)); }
 
+		/**
+		 * Convert @param arg and @param args to string and log with the Trace level.
+		 * Wraps Logger::log method with variadic number of arguments */
 		template<typename Arg, typename... Args>
 		void trace(Arg&& arg, Args&&... args) { return log(Trace, std::forward<Arg>(arg), std::forward<Args>(args)...); }
 
+		/**
+		 * Convert @param arg to string and log with the Debug level.
+		 * Wraps Logger::log method with single argument */
 		template<typename Arg>
 		void debug(Arg&& arg) { return log(Debug, std::forward<Arg>(arg)); }
 
+		/**
+		 * Convert @param arg and @param args to string and log with the Debug level.
+		 * Wraps Logger::log method with variadic number of arguments */
 		template<typename Arg, typename... Args>
 		void debug(Arg&& arg, Args&&... args) { return log(Debug, std::forward<Arg>(arg), std::forward<Args>(args)...); }
 
+		/**
+		 * Convert @param arg to string and log with the Info level.
+		 * Wraps Logger::log method with single argument */
 		template<typename Arg>
 		void info(Arg&& arg) { return log(Info, std::forward<Arg>(arg)); }
 
+		/**
+		 * Convert @param arg and @param args to string and log with the Info level.
+		 * Wraps Logger::log method with variadic number of arguments */
 		template<typename Arg, typename... Args>
 		void info(Arg&& arg, Args&&... args) { return log(Info, std::forward<Arg>(arg), std::forward<Args>(args)...); }
 
+		/**
+		 * Convert @param arg to string and log with the Warn level.
+		 * Wraps Logger::log method with single argument */
 		template<typename Arg>
 		void warn(Arg&& arg) { return log(Warn, std::forward<Arg>(arg)); }
 
+		/**
+		 * Convert @param arg and @param args to string and log with the Warn level.
+		 * Wraps Logger::log method with variadic number of arguments */
 		template<typename Arg, typename... Args>
 		void warn(Arg&& arg, Args&&... args) { return log(Warn, std::forward<Arg>(arg), std::forward<Args>(args)...); }
 
+		/**
+		 * Convert @param arg to string and log with the Error level.
+		 * Wraps Logger::log method with single argument */
 		template<typename Arg>
 		void error(Arg&& arg) { return log(Error, std::forward<Arg>(arg)); }
 
+		/**
+		 * Convert @param arg and @param args to string and log with the Error level.
+		 * Wraps Logger::log method with variadic number of arguments */
 		template<typename Arg, typename... Args>
 		void error(Arg&& arg, Args&&... args) { return log(Error, std::forward<Arg>(arg), std::forward<Args>(args)...); }
 
+		/**
+		 * Convert @param arg to string and log with the Fatal level.
+		 * Wraps Logger::log method with single argument */
 		template<typename Arg>
 		void fatal(Arg&& arg) { return log(Fatal, std::forward<Arg>(arg)); }
 
+		/**
+		 * Convert @param arg and @param args to string and log with the Fatal level.
+		 * Wraps Logger::log method with variadic number of arguments */
 		template<typename Arg, typename... Args>
 		void fatal(Arg&& arg, Args&&... args) { return log(Fatal, std::forward<Arg>(arg), std::forward<Args>(args)...); }
 

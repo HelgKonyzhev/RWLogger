@@ -12,7 +12,9 @@ namespace RWLogger
 	void Logger::addAppender(AppenderPtr appender)
 	{
 		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
-		m_appenders.push_back(appender);
+		const auto it = std::find(m_appenders.begin(), m_appenders.end(), appender);
+		if(it == m_appenders.end())
+			m_appenders.push_back(appender);
 	}
 
 	void Logger::removeAppender(AppenderPtr appender)
