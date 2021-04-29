@@ -47,11 +47,11 @@ struct ConsoleAppendersTest : public Test
 		ASSERT(!resultIn.fail() && !witnessIn.fail());
 
 		resultIn.seekg(0, std::ios_base::end);
-		int resultSize = resultIn.tellg();
+		auto resultSize = static_cast<int>(resultIn.tellg());
 		resultIn.seekg(0, std::ios_base::beg);
 
 		witnessIn.seekg(0, std::ios_base::end);
-		int witnessSize = witnessIn.tellg();
+		auto witnessSize = static_cast<int>(witnessIn.tellg());
 		witnessIn.seekg(0, std::ios_base::beg);
 
 		ASSERT(resultSize == witnessSize);
