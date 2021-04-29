@@ -82,8 +82,11 @@ struct MultipleThreadsTest : public Test
 			logSequence.push_back("FATAL f6");
 		});
 
-		logging = true;
-		cv.notify_all();
+		{
+			std::unique_lock<std::mutex> lck(mtx);
+			logging = true;
+			cv.notify_all();
+		}
 
 		f1.wait();
 		f2.wait();
