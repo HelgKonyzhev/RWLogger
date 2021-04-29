@@ -19,7 +19,7 @@ namespace RWLogger
 	{
 	public:
 		/**
-		 * This constructor created a new logger instance and
+		 * This constructor creates a new logger instance and
 		 * sets its name and loggng level. */
 		Logger(const std::string& name, Level lvl = Trace);
 

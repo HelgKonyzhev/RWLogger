@@ -13,9 +13,9 @@ namespace RWLogger
 		case Debug:
 			return "DEBUG";
 		case Info:
-			return "INFO ";
+			return "INFO";
 		case Warn:
-			return "WARN ";
+			return "WARN";
 		case Error:
 			return "ERROR";
 		case Fatal:
@@ -36,9 +36,9 @@ namespace RWLogger
 			const auto msecs = duration_cast<milliseconds>(event.time - system_clock::from_time_t(eventTimeT)).count();
 			const auto timeInfo = localtime(&eventTimeT);
 
-			ostream << std::put_time(timeInfo, "%Y-%m-%d %H:%M:%S.") << std::setfill('0') << std::setw(3) << msecs
+			ostream << std::put_time(timeInfo, "%Y-%m-%d %H:%M:%S.") << std::setfill('0') << std::setw(3) << msecs << std::setfill('\0')
 					<< " "
-					<< levelName(event.level)
+					<< std::setw(5) << std::left << levelName(event.level)
 					<< "\t"
 					<< std::hex << std::showbase << std::internal << std::setw(10) << event.threadId << std::dec << std::setfill('\0') << std::setw(0)
 					<< " "

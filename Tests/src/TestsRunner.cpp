@@ -1,9 +1,10 @@
 #include "TestsRunner.h"
 #include <iostream>
+#include <iomanip>
 
 void TestsRunner::testFormat(std::ostream& ostream, const RWLogger::Appender::LoggingEvent& event)
 {
-	ostream << RWLogger::Appender::levelName(event.level)
+	ostream << std::setw(5) << std::left << RWLogger::Appender::levelName(event.level) << std::setw(0)
 			<< " "
 			<< event.loggerName
 			<< " - "

@@ -3,6 +3,8 @@
 
 namespace RWLogger
 {
+	/**
+	* CoutAppender appends log events to stdout using a formatter specified by the user. */
 	class CoutAppender : public Appender
 	{
 	public:
@@ -10,6 +12,8 @@ namespace RWLogger
 	};
 
 
+	/**
+	* CerrAppender appends log events to stderr using a formatter specified by the user. */
 	class CerrAppender : public Appender
 	{
 	public:
