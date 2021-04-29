@@ -14,7 +14,7 @@ struct AsyncAppenderTest : public Test
 	{
 		using namespace RWLogger;
 
-		Logger logger("AsyncLogger");
+		Logger logger;
 		auto appender = std::make_shared<AsyncAppender>(10);
 		appender->addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 		logger.addAppender(appender);
@@ -31,12 +31,12 @@ struct AsyncAppenderTest : public Test
 
 		std::ofstream witnessOut;
 		witnessOut.open("witness", std::ios::out|std::ios::trunc);
-		witnessOut << "TRACE AsyncLogger - Trace message" << std::endl;
-		witnessOut << "DEBUG AsyncLogger - Debug message" << std::endl;
-		witnessOut << "INFO  AsyncLogger - Info message"  << std::endl;
-		witnessOut << "WARN  AsyncLogger - Warn message"  << std::endl;
-		witnessOut << "ERROR AsyncLogger - Error message" << std::endl;
-		witnessOut << "FATAL AsyncLogger - Fatal message" << std::endl;
+		witnessOut << "TRACE Trace message" << std::endl;
+		witnessOut << "DEBUG Debug message" << std::endl;
+		witnessOut << "INFO  Info message"  << std::endl;
+		witnessOut << "WARN  Warn message"  << std::endl;
+		witnessOut << "ERROR Error message" << std::endl;
+		witnessOut << "FATAL Fatal message" << std::endl;
 		witnessOut.close();
 
 		std::ifstream resultIn, witnessIn;

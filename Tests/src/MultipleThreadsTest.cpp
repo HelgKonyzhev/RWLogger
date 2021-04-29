@@ -14,7 +14,7 @@ struct MultipleThreadsTest : public Test
 	{
 		using namespace RWLogger;
 
-		Logger logger("MultipleThreadsLogger");
+		Logger logger;
 		auto appender = logger.addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 
 		std::mutex mtx;
@@ -29,7 +29,7 @@ struct MultipleThreadsTest : public Test
 				cv.wait(lck);
 
 			logger.trace("f1");
-			logSequence.push_back("TRACE MultipleThreadsLogger - f1");
+			logSequence.push_back("TRACE f1");
 		});
 
 		auto f2 = std::async(std::launch::async, [&]
@@ -39,7 +39,7 @@ struct MultipleThreadsTest : public Test
 				cv.wait(lck);
 
 			logger.debug("f2");
-			logSequence.push_back("DEBUG MultipleThreadsLogger - f2");
+			logSequence.push_back("DEBUG f2");
 		});
 
 		auto f3 = std::async(std::launch::async, [&]
@@ -49,7 +49,7 @@ struct MultipleThreadsTest : public Test
 				cv.wait(lck);
 
 			logger.info("f3");
-			logSequence.push_back("INFO  MultipleThreadsLogger - f3");
+			logSequence.push_back("INFO  f3");
 		});
 
 		auto f4 = std::async(std::launch::async, [&]
@@ -59,7 +59,7 @@ struct MultipleThreadsTest : public Test
 				cv.wait(lck);
 
 			logger.warn("f4");
-			logSequence.push_back("WARN  MultipleThreadsLogger - f4");
+			logSequence.push_back("WARN  f4");
 		});
 
 		auto f5 = std::async(std::launch::async, [&]
@@ -69,7 +69,7 @@ struct MultipleThreadsTest : public Test
 				cv.wait(lck);
 
 			logger.error("f5");
-			logSequence.push_back("ERROR MultipleThreadsLogger - f5");
+			logSequence.push_back("ERROR f5");
 		});
 
 		auto f6 = std::async(std::launch::async, [&]
@@ -79,7 +79,7 @@ struct MultipleThreadsTest : public Test
 				cv.wait(lck);
 
 			logger.fatal("f6");
-			logSequence.push_back("FATAL MultipleThreadsLogger - f6");
+			logSequence.push_back("FATAL f6");
 		});
 
 		logging = true;

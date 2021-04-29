@@ -6,8 +6,6 @@ void TestsRunner::testFormat(std::ostream& ostream, const RWLogger::Appender::Lo
 {
 	ostream << std::setw(5) << std::left << RWLogger::Appender::levelName(event.level) << std::setw(0)
 			<< " "
-			<< event.loggerName
-			<< " - "
 			<< event.message
 			<< '\n';
 };

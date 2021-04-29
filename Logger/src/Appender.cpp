@@ -42,8 +42,6 @@ namespace RWLogger
 					<< "\t"
 					<< std::hex << std::showbase << std::internal << std::setw(10) << event.threadId << std::dec << std::setfill('\0') << std::setw(0)
 					<< " "
-					<< event.loggerName
-					<< " - "
 					<< event.message
 					<< '\n';
 		};

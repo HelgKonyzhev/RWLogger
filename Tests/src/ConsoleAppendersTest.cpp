@@ -13,7 +13,7 @@ struct ConsoleAppendersTest : public Test
 	{
 		using namespace RWLogger;
 
-		Logger logger("ConsoleLogger");
+		Logger logger;
 		logger.addAppender<CoutAppender>(true, TestsRunner::testFormat);
 
 		std::ofstream resultOut("result");
@@ -32,12 +32,12 @@ struct ConsoleAppendersTest : public Test
 
 		std::ofstream witnessOut;
 		witnessOut.open("witness", std::ios::out|std::ios::trunc);
-		witnessOut << "TRACE ConsoleLogger - Trace message" << std::endl;
-		witnessOut << "DEBUG ConsoleLogger - Debug message" << std::endl;
-		witnessOut << "INFO  ConsoleLogger - Info message"  << std::endl;
-		witnessOut << "WARN  ConsoleLogger - Warn message"  << std::endl;
-		witnessOut << "ERROR ConsoleLogger - Error message" << std::endl;
-		witnessOut << "FATAL ConsoleLogger - Fatal message" << std::endl;
+		witnessOut << "TRACE Trace message" << std::endl;
+		witnessOut << "DEBUG Debug message" << std::endl;
+		witnessOut << "INFO  Info message"  << std::endl;
+		witnessOut << "WARN  Warn message"  << std::endl;
+		witnessOut << "ERROR Error message" << std::endl;
+		witnessOut << "FATAL Fatal message" << std::endl;
 		witnessOut.close();
 
 		std::ifstream resultIn, witnessIn;

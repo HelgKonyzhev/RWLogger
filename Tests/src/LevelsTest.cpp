@@ -13,7 +13,7 @@ struct LevelsTest : public Test
 	{
 		using namespace RWLogger;
 
-		Logger logger("LevelsLogger", Info);
+		Logger logger(Info);
 		auto appender = logger.addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 
 		logger.trace("Trace message");
@@ -28,10 +28,10 @@ struct LevelsTest : public Test
 
 		std::ofstream witnessOut;
 		witnessOut.open("witness", std::ios::out|std::ios::trunc);
-		witnessOut << "INFO  LevelsLogger - Info message"  << std::endl;
-		witnessOut << "WARN  LevelsLogger - Warn message"  << std::endl;
-		witnessOut << "ERROR LevelsLogger - Error message" << std::endl;
-		witnessOut << "FATAL LevelsLogger - Fatal message" << std::endl;
+		witnessOut << "INFO  Info message"  << std::endl;
+		witnessOut << "WARN  Warn message"  << std::endl;
+		witnessOut << "ERROR Error message" << std::endl;
+		witnessOut << "FATAL Fatal message" << std::endl;
 		witnessOut.close();
 
 		std::ifstream resultIn, witnessIn;

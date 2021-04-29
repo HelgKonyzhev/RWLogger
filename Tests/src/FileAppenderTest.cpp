@@ -13,7 +13,7 @@ struct FilesAppenderTest : public Test
 	{
 		using namespace RWLogger;
 
-		Logger logger("FileLogger");
+		Logger logger;
 		auto appender = logger.addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 
 		logger.trace("Trace message");
@@ -28,12 +28,12 @@ struct FilesAppenderTest : public Test
 
 		std::ofstream witnessOut;
 		witnessOut.open("witness", std::ios::out|std::ios::trunc);
-		witnessOut << "TRACE FileLogger - Trace message" << std::endl;
-		witnessOut << "DEBUG FileLogger - Debug message" << std::endl;
-		witnessOut << "INFO  FileLogger - Info message"  << std::endl;
-		witnessOut << "WARN  FileLogger - Warn message"  << std::endl;
-		witnessOut << "ERROR FileLogger - Error message" << std::endl;
-		witnessOut << "FATAL FileLogger - Fatal message" << std::endl;
+		witnessOut << "TRACE Trace message" << std::endl;
+		witnessOut << "DEBUG Debug message" << std::endl;
+		witnessOut << "INFO  Info message"  << std::endl;
+		witnessOut << "WARN  Warn message"  << std::endl;
+		witnessOut << "ERROR Error message" << std::endl;
+		witnessOut << "FATAL Fatal message" << std::endl;
 		witnessOut.close();
 
 		std::ifstream resultIn, witnessIn;

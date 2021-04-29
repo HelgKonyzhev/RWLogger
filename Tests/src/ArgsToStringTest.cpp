@@ -13,7 +13,7 @@ struct ArgsToStringTest : public Test
 	{
 		using namespace RWLogger;
 
-		Logger logger("ArgsToStringLogger");
+		Logger logger;
 		auto appender = logger.addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 
 		int intArg = 123;
@@ -74,16 +74,16 @@ struct ArgsToStringTest : public Test
 
 		std::ofstream witnessOut;
 		witnessOut.open("witness", std::ios::out|std::ios::trunc);
-		witnessOut << "INFO  ArgsToStringLogger - 123" << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - 123.456" << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - c"  << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - const char* message"  << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - string message" << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - loggable custom type message" << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - string constructible custom type message" << std::endl;
-		witnessOut << "INFO  ArgsToStringLogger - loggable custom type message" << std::endl;
+		witnessOut << "INFO  123" << std::endl;
+		witnessOut << "INFO  123.456" << std::endl;
+		witnessOut << "INFO  c"  << std::endl;
+		witnessOut << "INFO  const char* message"  << std::endl;
+		witnessOut << "INFO  string message" << std::endl;
+		witnessOut << "INFO  loggable custom type message" << std::endl;
+		witnessOut << "INFO  string constructible custom type message" << std::endl;
+		witnessOut << "INFO  loggable custom type message" << std::endl;
 
-		witnessOut << "INFO  ArgsToStringLogger - 123, 123.456, c, const char* message, string message, "
+		witnessOut << "INFO  123, 123.456, c, const char* message, string message, "
 					  "loggable custom type message, string constructible custom type message, loggable custom type message"
 				   << std::endl;
 

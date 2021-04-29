@@ -20,8 +20,8 @@ namespace RWLogger
 	public:
 		/**
 		 * This constructor creates a new logger instance and
-		 * sets its name and loggng level. */
-		Logger(const std::string& name, Level lvl = Trace);
+		 * sets its loggng level. */
+		Logger(Level lvl = Trace);
 
 		/**
 		 * Return the logger level */
@@ -257,7 +257,6 @@ namespace RWLogger
 		void logImpl(Level lvl, const std::string& message);
 
 	private:
-		std::string m_name;
 		std::vector<AppenderPtr> m_appenders;
 		std::atomic<Level> m_level;
 		std::mutex m_appendersMtx;

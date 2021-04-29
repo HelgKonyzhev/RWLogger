@@ -26,7 +26,6 @@ namespace RWLogger
 			std::string message;
 			std::chrono::system_clock::time_point time;
 			std::thread::id threadId;
-			std::string loggerName;
 		};
 
 		using Formatter = std::function<void(std::ostream& ostream, const LoggingEvent&)>;
@@ -45,7 +44,7 @@ namespace RWLogger
 		 * @param formatter is a callable object intended to format log message
 		 * from LoggingEvent. It it's nullptr then default formatter is used
 		 * By default, log messages are formatted according to a template:
-		 * [Date and time with milliseconds] [Logging level name]\t[Logging thread id] [Logger name] - [Message] */
+		 * [Date and time with milliseconds] [Logging level name]\t[Logging thread id] [Message] */
 		Appender(bool immidiateFlush = true, Formatter formatter = nullptr);
 
 		/**
@@ -60,7 +59,7 @@ namespace RWLogger
 		 * @param formatter is a callable object intended to format log message
 		 * from LoggingEvent. It it's nullptr then default formatter is used
 		 * By default, log messages are formatted according to a template:
-		 * [Date and time with milliseconds] [Logging level name]\t[Logging thread id] [Logger name] - [Message] */
+		 * [Date and time with milliseconds] [Logging level name]\t[Logging thread id] [Message] */
 		Appender(std::ostream* os, bool immidiateFlush = true, Formatter formatter = nullptr);
 		Appender(const Appender&) = delete;
 

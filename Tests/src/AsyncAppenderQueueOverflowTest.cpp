@@ -74,7 +74,7 @@ struct AsyncAppenderQueueOverflowTest : public Test
 	void run() noexcept(false) override
 	{
 		CallsSequence callsSequense;
-		Logger logger("AsyncLogger");
+		Logger logger;
 		auto appender = std::make_shared<TestAsyncAppender>(&callsSequense, MaxQueueSize);
 		appender->addAppender<TestSubAppender>(&callsSequense);
 		logger.addAppender(appender);

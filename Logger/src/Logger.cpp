@@ -4,9 +4,8 @@
 
 namespace RWLogger
 {
-	Logger::Logger(const std::string& name, Level lvl)
-		: m_name(name)
-		, m_level(lvl)
+	Logger::Logger(Level lvl)
+		: m_level(lvl)
 	{}
 
 	void Logger::addAppender(AppenderPtr appender)
@@ -33,6 +32,6 @@ namespace RWLogger
 		const auto eventTime = std::chrono::system_clock::now();
 		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
 		for(const auto& appender: m_appenders)
-			appender->append({ lvl, message, eventTime, std::this_thread::get_id(), m_name });
+			appender->append({ lvl, message, eventTime, std::this_thread::get_id() });
 	}
 }
