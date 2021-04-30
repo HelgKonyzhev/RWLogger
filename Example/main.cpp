@@ -30,12 +30,12 @@ void printHelp()
 	cout << "Example.exe -L Debug -c cout -t 2 -l Debug -m \"Debug message 1\" -m \"Debug message 2\" -l Info -m \"Info message\" -l Trace -m \"Trace message\"" << endl;
 	cout << endl;
 	cout << "Output:" << endl;
-	cout << "2021-04-30 01:07:07.438 DEBUG	0x00000001 Debug message 1" << endl;
-	cout << "2021-04-30 01:07:07.438 DEBUG	0x00000002 Debug message 1" << endl;
-	cout << "2021-04-30 01:07:07.459 DEBUG	0x00000002 Debug message 2" << endl;
-	cout << "2021-04-30 01:07:07.459 DEBUG	0x00000001 Debug message 2" << endl;
-	cout << "2021-04-30 01:07:07.475 INFO 	0x00000001 Info message" << endl;
-	cout << "2021-04-30 01:07:07.475 INFO 	0x00000002 Info message" << endl;
+	cout << "2021-04-30 13:06:09.096 DEBUG	0x00000001 Debug message 1" << endl;
+	cout << "2021-04-30 13:06:09.096 DEBUG	0x00000002 Debug message 1" << endl;
+	cout << "2021-04-30 13:06:09.096 DEBUG	0x00000001 Debug message 2" << endl;
+	cout << "2021-04-30 13:06:09.096 DEBUG	0x00000002 Debug message 2" << endl;
+	cout << "2021-04-30 13:06:09.097 INFO 	0x00000001 Info message" << endl;
+	cout << "2021-04-30 13:06:09.097 INFO 	0x00000002 Info message" << endl;
 }
 
 void assert(bool assertion, const std::string& failureMessage)

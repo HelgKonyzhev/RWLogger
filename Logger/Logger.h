@@ -1,5 +1,6 @@
 #pragma once
 #include "Commons.h"
+#include "FIFOMutex.h"
 #include <string>
 #include <memory>
 #include <vector>
@@ -259,6 +260,6 @@ namespace RWLogger
 	private:
 		std::vector<AppenderPtr> m_appenders;
 		std::atomic<Level> m_level;
-		std::mutex m_appendersMtx;
+		FIFOMutex m_appendersMtx;
 	};
 }

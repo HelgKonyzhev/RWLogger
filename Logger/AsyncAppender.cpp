@@ -12,7 +12,7 @@ namespace RWLogger
 	AsyncAppender::~AsyncAppender()
 	{
 		{
-			std::unique_lock<std::mutex> lck(m_bufferMtx);
+			std::unique_lock<FIFOMutex> lck(m_bufferMtx);
 			while(!m_buffer.empty())
 				m_bufferCv.wait(lck);
 		}
@@ -40,7 +40,7 @@ namespace RWLogger
 
 	void AsyncAppender::append(const LoggingEvent& event)
 	{
-		std::unique_lock<std::mutex> lck(m_bufferMtx);
+		std::unique_lock<FIFOMutex> lck(m_bufferMtx);
 
 		if(m_buffer.size() >= m_bufferMaxSize)
 		{
@@ -61,7 +61,7 @@ namespace RWLogger
 		{
 			LoggingEvent event;
 			{
-				std::unique_lock<std::mutex> queueLck(m_bufferMtx);
+				std::unique_lock<FIFOMutex> queueLck(m_bufferMtx);
 				while(m_buffer.empty() && m_appending)
 					m_bufferCv.wait(queueLck);
 

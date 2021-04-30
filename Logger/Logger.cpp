@@ -10,7 +10,7 @@ namespace RWLogger
 
 	void Logger::addAppender(AppenderPtr appender)
 	{
-		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
+		std::unique_lock<FIFOMutex> appendersLck(m_appendersMtx);
 		const auto it = std::find(m_appenders.begin(), m_appenders.end(), appender);
 		if(it == m_appenders.end())
 			m_appenders.push_back(appender);
@@ -18,7 +18,7 @@ namespace RWLogger
 
 	void Logger::removeAppender(AppenderPtr appender)
 	{
-		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
+		std::unique_lock<FIFOMutex> appendersLck(m_appendersMtx);
 		const auto it = std::find(m_appenders.begin(), m_appenders.end(), appender);
 		if(it != m_appenders.end())
 			m_appenders.erase(it);
@@ -30,7 +30,7 @@ namespace RWLogger
 			return;
 
 		const auto eventTime = std::chrono::system_clock::now();
-		std::unique_lock<std::mutex> appendersLck(m_appendersMtx);
+		std::unique_lock<FIFOMutex> appendersLck(m_appendersMtx);
 		for(const auto& appender: m_appenders)
 			appender->append({ lvl, message, eventTime, std::this_thread::get_id() });
 	}

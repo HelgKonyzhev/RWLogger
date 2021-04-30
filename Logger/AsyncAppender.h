@@ -1,5 +1,6 @@
 #pragma once
 #include "Appender.h"
+#include "FIFOMutex.h"
 #include <thread>
 #include <atomic>
 #include <condition_variable>
@@ -62,7 +63,7 @@ namespace RWLogger
 		std::mutex m_appendersMtx;
 		std::atomic_bool m_appending{ true };
 		std::queue<LoggingEvent> m_buffer;
-		std::mutex m_bufferMtx;
+		FIFOMutex m_bufferMtx;
 		std::condition_variable_any m_bufferCv;
 		std::thread m_appenderTread;
 	};

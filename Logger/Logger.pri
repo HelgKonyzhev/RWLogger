@@ -1,4 +1,5 @@
 SOURCES += \
+    $$PWD/FIFOMutex.cpp \
     $$PWD/Logger.cpp \
     $$PWD/Appender.cpp \
     $$PWD/ConsoleAppender.cpp \
@@ -6,6 +7,7 @@ SOURCES += \
     $$PWD/AsyncAppender.cpp \
 
 HEADERS += \
+    $$PWD/FIFOMutex.h \
     $$PWD/Logger.h \
     $$PWD/Appender.h \
     $$PWD/Commons.h \
