@@ -18,75 +18,73 @@ struct MultipleThreadsTest : public Test
 		auto appender = logger.addAppender<FileAppender>("result", false, true, TestsRunner::testFormat);
 
 		std::mutex mtx;
-		std::condition_variable cv;
-		std::atomic_bool logging{ false };
 		std::vector<std::string> logSequence;
 
 		auto f1 = std::async(std::launch::async, [&]
 		{
-			std::unique_lock<std::mutex> lck(mtx);
-			while(!logging)
-				cv.wait(lck);
+			for(int i = 0; i < 5; i++)
+			{
+				logger.trace("f1 ", i);
 
-			logger.trace("f1");
-			logSequence.push_back("TRACE f1");
+				std::unique_lock<std::mutex> lck(mtx);
+				logSequence.push_back(std::string("TRACE f1 ") + std::to_string(i));
+			}
 		});
 
 		auto f2 = std::async(std::launch::async, [&]
 		{
-			std::unique_lock<std::mutex> lck(mtx);
-			while(!logging)
-				cv.wait(lck);
+			for(int i = 0; i < 5; i++)
+			{
+				logger.debug("f2 ", i);
 
-			logger.debug("f2");
-			logSequence.push_back("DEBUG f2");
+				std::unique_lock<std::mutex> lck(mtx);
+				logSequence.push_back(std::string("DEBUG f2 ") + std::to_string(i));
+			}
 		});
 
 		auto f3 = std::async(std::launch::async, [&]
 		{
-			std::unique_lock<std::mutex> lck(mtx);
-			while(!logging)
-				cv.wait(lck);
+			for(int i = 0; i < 5; i++)
+			{
+				logger.info("f3 ", i);
 
-			logger.info("f3");
-			logSequence.push_back("INFO  f3");
+				std::unique_lock<std::mutex> lck(mtx);
+				logSequence.push_back(std::string("INFO  f3 ") + std::to_string(i));
+			}
 		});
 
 		auto f4 = std::async(std::launch::async, [&]
 		{
-			std::unique_lock<std::mutex> lck(mtx);
-			while(!logging)
-				cv.wait(lck);
+			for(int i = 0; i < 5; i++)
+			{
+				logger.warn("f4 ", i);
 
-			logger.warn("f4");
-			logSequence.push_back("WARN  f4");
+				std::unique_lock<std::mutex> lck(mtx);
+				logSequence.push_back(std::string("WARN  f4 ") + std::to_string(i));
+			}
 		});
 
 		auto f5 = std::async(std::launch::async, [&]
 		{
-			std::unique_lock<std::mutex> lck(mtx);
-			while(!logging)
-				cv.wait(lck);
+			for(int i = 0; i < 5; i++)
+			{
+				logger.error("f5 ", i);
 
-			logger.error("f5");
-			logSequence.push_back("ERROR f5");
+				std::unique_lock<std::mutex> lck(mtx);
+				logSequence.push_back(std::string("ERROR f5 ") + std::to_string(i));
+			}
 		});
 
 		auto f6 = std::async(std::launch::async, [&]
 		{
-			std::unique_lock<std::mutex> lck(mtx);
-			while(!logging)
-				cv.wait(lck);
+			for(int i = 0; i < 5; i++)
+			{
+				logger.fatal("f6 ", i);
 
-			logger.fatal("f6");
-			logSequence.push_back("FATAL f6");
+				std::unique_lock<std::mutex> lck(mtx);
+				logSequence.push_back(std::string("FATAL f6 ") + std::to_string(i));
+			}
 		});
-
-		{
-			std::unique_lock<std::mutex> lck(mtx);
-			logging = true;
-			cv.notify_all();
-		}
 
 		f1.wait();
 		f2.wait();
