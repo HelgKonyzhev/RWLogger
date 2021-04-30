@@ -166,10 +166,7 @@ int main(int argc, char* argv[])
 			logFutures.emplace_back(std::async((i == 0 ? std::launch::deferred : std::launch::async), [&]()
 			{
 				for(const auto& it: messages)
-				{
 					logger.log(it.first, it.second);
-					std::this_thread::sleep_for(std::chrono::milliseconds(100));
-				}
 			}));
 		}
 

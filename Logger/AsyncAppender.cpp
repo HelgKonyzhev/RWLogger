@@ -44,12 +44,10 @@ namespace RWLogger
 
 		if(m_buffer.size() >= m_bufferMaxSize)
 		{
-			onQueueOverflow(m_buffer.size());
 			while(m_buffer.size() >= m_bufferMaxSize)
 				m_bufferCv.wait(lck);
 		}
 
-		onAppending(event);
 		const auto wasEmpty = m_buffer.empty();
 		m_buffer.push(event);
 		if(wasEmpty)

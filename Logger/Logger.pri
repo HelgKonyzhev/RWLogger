@@ -1,17 +1,17 @@
 SOURCES += \
-    $$PWD/src/Logger.cpp \
-    $$PWD/src/Appender.cpp \
-    $$PWD/src/ConsoleAppender.cpp \
-    $$PWD/src/FileAppender.cpp \
-    $$PWD/src/AsyncAppender.cpp \
+    $$PWD/Logger.cpp \
+    $$PWD/Appender.cpp \
+    $$PWD/ConsoleAppender.cpp \
+    $$PWD/FileAppender.cpp \
+    $$PWD/AsyncAppender.cpp \
 
 HEADERS += \
-    $$PWD/include/Logger.h \
-    $$PWD/include/Appender.h \
-    $$PWD/include/Commons.h \
-    $$PWD/include/ConsoleAppender.h \
-    $$PWD/include/FileAppender.h \
-    $$PWD/include/AsyncAppender.h \
+    $$PWD/Logger.h \
+    $$PWD/Appender.h \
+    $$PWD/Commons.h \
+    $$PWD/ConsoleAppender.h \
+    $$PWD/FileAppender.h \
+    $$PWD/AsyncAppender.h \
 
 INCLUDEPATH += \
-    $$PWD/include
+    $$PWD

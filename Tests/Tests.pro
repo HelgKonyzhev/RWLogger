@@ -7,7 +7,6 @@ include ($$PWD/../Logger/Logger.pri)
 
 SOURCES += \
         $$PWD/ArgsToStringTest.cpp \
-        $$PWD/AsyncAppenderQueueOverflowTest.cpp \
         $$PWD/AsyncAppenderTest.cpp \
         $$PWD/ConsoleAppendersTest.cpp \
         $$PWD/FileAppenderTest.cpp \

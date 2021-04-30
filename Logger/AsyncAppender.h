@@ -56,18 +56,6 @@ namespace RWLogger
 	private:
 		void appenderRoutine();
 
-		/**
-		 * This function called from append function if bounded buffer is overflown.
-		 * It could be used for debugging and unit test purposes.
-		 * @param bufferSize means actual buffer size. */
-		virtual void onQueueOverflow(size_t bufferSize) { (void)bufferSize; }
-
-		/**
-		 * This function called from append function exactly befor event stored to bounded buffer.
-		 * It could be used for debugging and unit test purposes.
-		 * @param event means stored event. */
-		virtual void onAppending(const LoggingEvent& event) { (void)event; }
-
 	private:
 		size_t m_bufferMaxSize;
 		std::vector<AppenderPtr> m_appenders;
