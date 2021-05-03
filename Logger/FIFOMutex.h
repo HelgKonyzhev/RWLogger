@@ -15,8 +15,17 @@ namespace RWLogger
 		FIFOMutex();
 		~FIFOMutex();
 
+		/**
+		 * Locks the mutex, blocks if the mutex is not available.
+		 * The called thread is placed in the queue according to which it will be unblocked. */
 		void lock();
+
+		/**
+		 * Unlocks the mutex. */
 		void unlock();
+
+		/**
+		 * Tries to lock the mutex, returns if the mutex is not available. */
 		bool try_lock();
 
 	private:

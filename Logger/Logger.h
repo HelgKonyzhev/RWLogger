@@ -30,11 +30,12 @@ namespace RWLogger
 
 		/**
 		 * Add new appender to the list of appenders of this Logger instance.
-		 * If appender already in the list of appender, then it won't be added. */
+		 * If appender already in the list of appenders, then it won't be added. */
 		void addAppender(AppenderPtr appender);
 
 		/**
-		 * An overloaded function. Creates appender of type T and calls Logger::addAppender(AppenderPtr appender) */
+		 * An overloaded function. Creates appender of type T and calls Logger::addAppender(AppenderPtr appender)
+		 * and returns AppenderPtr to instance. */
 		template<typename T, typename... Args>
 		AppenderPtr addAppender(Args&&... args)
 		{
@@ -70,7 +71,7 @@ namespace RWLogger
 		 * This is the most generic printing method. It is intended to be
 		 * invoked by wrappers methods that takes variadic number of arguments.
 		 * It has arguments folding logic that converting arguments
-		 * to string and stores them into temporary local string before the printing
+		 * to string and stores them into temporary local string before the printing.
 		 * This method first checks if demanded logging level is enabled
 		 * by comparing it with the level of this logger.
 		 * If so, it proceeds to call all the registered appenders. */
